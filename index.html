@@ -218,6 +218,27 @@
     riskCritical: "Critical Risk",
     riskProtected: "Still Protected",
     riskMitigations: "Mitigations",
+    nodeDevTitle: "Developer", nodeDevSummary: "The developer who initiates the secure flow from the corporate endpoint.",
+    nodeDevB1: "Session initiation", nodeDevB2: "Development operations", nodeDevB3: "Activity generation",
+    nodeDevM1: "Identity check", nodeDevM2: "Device trust", nodeDevM3: "Audit visibility",
+    nodeMacTitle: "Corporate Mac", nodeMacSummary: "Corporate device with FileVault and MDM — endpoint security control point.",
+    nodeMacB1: "FileVault active", nodeMacB2: "MDM enforcement", nodeMacB3: "Policy posture",
+    nodeMacM1: "Endpoint hardening", nodeMacM2: "Patch compliance", nodeMacM3: "Telemetry",
+    nodeSsoTitle: "SSO + MFA", nodeSsoSummary: "Single Sign-On + Multi-Factor Authentication to validate identity before granting access.",
+    nodeSsoB1: "Centralized authentication", nodeSsoB2: "Second factor enforcement", nodeSsoB3: "Access context evaluation",
+    nodeSsoM1: "Authentication strength", nodeSsoM2: "Session control", nodeSsoM3: "Risk detection",
+    nodeSecsTitle: "Secrets Manager", nodeSecsSummary: "Secure management of secrets (tokens, keys, credentials) outside of source code.",
+    nodeSecsB1: "Central vault", nodeSecsB2: "Rotation policy", nodeSecsB3: "Least privilege",
+    nodeSecsM1: "Secret hygiene", nodeSecsM2: "Rotation readiness", nodeSecsM3: "Leak resistance",
+    nodeZtTitle: "Cloudflare Zero Trust", nodeZtSummary: "Access control by identity, device posture, and policy before reaching any protected resource.",
+    nodeZtB1: "Policy enforcement", nodeZtB2: "Per-app authorization", nodeZtB3: "Access segmentation",
+    nodeZtM1: "Access governance", nodeZtM2: "Policy coverage", nodeZtM3: "Attack surface reduction",
+    nodeResTitle: "Protected Resources", nodeResSummary: "The set of applications and data protected behind the Zero Trust gateway.",
+    nodeResB1: "GitHub", nodeResB2: "Database (Read Only)", nodeResB3: "Brightree, Kinnser, Teams / O365",
+    nodeResM1: "Resource protection", nodeResM2: "Access consistency", nodeResM3: "Operational continuity",
+    nodeLgTitle: "Centralized Logs", nodeLgSummary: "Central event repository for monitoring, traceability, and compliance auditing.",
+    nodeLgB1: "Event correlation", nodeLgB2: "Incident response", nodeLgB3: "Compliance evidence",
+    nodeLgM1: "Coverage", nodeLgM2: "Forensic readiness", nodeLgM3: "Alert quality",
     flowDiagramSubtitle: "Flow aligned to your Secure Information Flow reference.",
     flowBadge: "Resources encapsulated",
     flowError1: "React Flow failed to load.",
@@ -388,6 +409,27 @@
     riskCritical: "Riesgo Crítico",
     riskProtected: "Aún Protegido",
     riskMitigations: "Mitigaciones",
+    nodeDevTitle: "Desarrollador", nodeDevSummary: "El desarrollador que inicia el flujo seguro desde el endpoint corporativo.",
+    nodeDevB1: "Inicio de sesión", nodeDevB2: "Operaciones de desarrollo", nodeDevB3: "Generación de actividad",
+    nodeDevM1: "Verificación de identidad", nodeDevM2: "Confianza del dispositivo", nodeDevM3: "Visibilidad de auditoría",
+    nodeMacTitle: "Mac Corporativa", nodeMacSummary: "Dispositivo corporativo con FileVault y MDM, punto de control del endpoint.",
+    nodeMacB1: "FileVault activo", nodeMacB2: "Cumplimiento MDM", nodeMacB3: "Postura de política",
+    nodeMacM1: "Hardening del endpoint", nodeMacM2: "Cumplimiento de parches", nodeMacM3: "Telemetría",
+    nodeSsoTitle: "SSO + MFA", nodeSsoSummary: "Inicio de sesión único + autenticación multifactor para validar la identidad antes de conceder acceso.",
+    nodeSsoB1: "Autenticación centralizada", nodeSsoB2: "Aplicación del segundo factor", nodeSsoB3: "Evaluación del contexto de acceso",
+    nodeSsoM1: "Fortaleza de autenticación", nodeSsoM2: "Control de sesión", nodeSsoM3: "Detección de riesgo",
+    nodeSecsTitle: "Gestor de Secretos", nodeSecsSummary: "Gestión segura de secretos (tokens, claves, credenciales) fuera del código fuente.",
+    nodeSecsB1: "Vault central", nodeSecsB2: "Política de rotación", nodeSecsB3: "Mínimo privilegio",
+    nodeSecsM1: "Higiene de secretos", nodeSecsM2: "Preparación para rotación", nodeSecsM3: "Resistencia a filtraciones",
+    nodeZtTitle: "Cloudflare Zero Trust", nodeZtSummary: "Control de acceso por identidad, postura del dispositivo y política antes de acceder a cualquier recurso protegido.",
+    nodeZtB1: "Aplicación de políticas", nodeZtB2: "Autorización por aplicación", nodeZtB3: "Segmentación de acceso",
+    nodeZtM1: "Gobernanza de acceso", nodeZtM2: "Cobertura de políticas", nodeZtM3: "Reducción de superficie de ataque",
+    nodeResTitle: "Recursos Protegidos", nodeResSummary: "El conjunto de aplicaciones y datos protegidos detrás de la puerta de enlace Zero Trust.",
+    nodeResB1: "GitHub", nodeResB2: "Base de datos (Solo lectura)", nodeResB3: "Brightree, Kinnser, Teams / O365",
+    nodeResM1: "Protección de recursos", nodeResM2: "Consistencia de acceso", nodeResM3: "Continuidad operativa",
+    nodeLgTitle: "Logs Centralizados", nodeLgSummary: "Repositorio central de eventos para monitoreo, trazabilidad y auditoría de cumplimiento.",
+    nodeLgB1: "Correlación de eventos", nodeLgB2: "Respuesta a incidentes", nodeLgB3: "Evidencia de cumplimiento",
+    nodeLgM1: "Cobertura", nodeLgM2: "Preparación forense", nodeLgM3: "Calidad de alertas",
     flowDiagramSubtitle: "Flujo alineado a tu referencia de flujo de información seguro.",
     flowBadge: "Recursos encapsulados",
     flowError1: "React Flow no pudo cargar.",
@@ -501,85 +543,50 @@
       const [selectedProcess, setSelectedProcess] = useState(null);
       const [rfInstance, setRfInstance] = useState(null);
 
-      const processInfo = {
+      const processInfo = t ? {
         DEV: {
-          title: "Developer",
-          acronym: "DEV",
-          summary: "The developer who initiates the secure flow from the corporate endpoint.",
-          bullets: ["Session initiation", "Development operations", "Activity generation"],
-          metrics: [
-            { label: "Identity check", value: 78 },
-            { label: "Device trust", value: 86 },
-            { label: "Audit visibility", value: 92 }
-          ]
+          title: t('nodeDevTitle'), acronym: "DEV",
+          summary: t('nodeDevSummary'),
+          bullets: [t('nodeDevB1'), t('nodeDevB2'), t('nodeDevB3')],
+          metrics: [{ label: t('nodeDevM1'), value: 78 }, { label: t('nodeDevM2'), value: 86 }, { label: t('nodeDevM3'), value: 92 }]
         },
         MAC: {
-          title: "Corporate Mac",
-          acronym: "MAC",
-          summary: "Dispositivo corporativo con FileVault y MDM, punto de control del endpoint.",
-          bullets: ["FileVault activo", "MDM enforcement", "Policy posture"],
-          metrics: [
-            { label: "Endpoint hardening", value: 88 },
-            { label: "Patch compliance", value: 81 },
-            { label: "Telemetry", value: 90 }
-          ]
+          title: t('nodeMacTitle'), acronym: "MAC",
+          summary: t('nodeMacSummary'),
+          bullets: [t('nodeMacB1'), t('nodeMacB2'), t('nodeMacB3')],
+          metrics: [{ label: t('nodeMacM1'), value: 88 }, { label: t('nodeMacM2'), value: 81 }, { label: t('nodeMacM3'), value: 90 }]
         },
         SSO: {
-          title: "SSO + MFA",
-          acronym: "SSO / MFA",
-          summary: "SSO (Single Sign-On) + MFA (Multi-Factor Authentication) to validate identity before granting access.",
-          bullets: ["Centralized authentication", "Second factor enforcement", "Access context evaluation"],
-          metrics: [
-            { label: "Authentication strength", value: 95 },
-            { label: "Session control", value: 84 },
-            { label: "Risk detection", value: 80 }
-          ]
+          title: t('nodeSsoTitle'), acronym: "SSO / MFA",
+          summary: t('nodeSsoSummary'),
+          bullets: [t('nodeSsoB1'), t('nodeSsoB2'), t('nodeSsoB3')],
+          metrics: [{ label: t('nodeSsoM1'), value: 95 }, { label: t('nodeSsoM2'), value: 84 }, { label: t('nodeSsoM3'), value: 80 }]
         },
         SECSM: {
-          title: "Secrets Manager",
-          acronym: "SECSM",
-          summary: "Secure management of secrets (tokens, keys, credentials) outside of source code.",
-          bullets: ["Vault central", "Rotation policy", "Least privilege"],
-          metrics: [
-            { label: "Secret hygiene", value: 91 },
-            { label: "Rotation readiness", value: 83 },
-            { label: "Leak resistance", value: 89 }
-          ]
+          title: t('nodeSecsTitle'), acronym: "SECSM",
+          summary: t('nodeSecsSummary'),
+          bullets: [t('nodeSecsB1'), t('nodeSecsB2'), t('nodeSecsB3')],
+          metrics: [{ label: t('nodeSecsM1'), value: 91 }, { label: t('nodeSecsM2'), value: 83 }, { label: t('nodeSecsM3'), value: 89 }]
         },
         ZT: {
-          title: "Cloudflare Zero Trust",
-          acronym: "ZT",
-          summary: "Access control by identity, device posture, and policy before reaching any protected resource.",
-          bullets: ["Policy enforcement", "Per-app authorization", "Access segmentation"],
-          metrics: [
-            { label: "Access governance", value: 94 },
-            { label: "Policy coverage", value: 87 },
-            { label: "Attack surface reduction", value: 90 }
-          ]
+          title: t('nodeZtTitle'), acronym: "ZT",
+          summary: t('nodeZtSummary'),
+          bullets: [t('nodeZtB1'), t('nodeZtB2'), t('nodeZtB3')],
+          metrics: [{ label: t('nodeZtM1'), value: 94 }, { label: t('nodeZtM2'), value: 87 }, { label: t('nodeZtM3'), value: 90 }]
         },
         RES: {
-          title: "Protected Resources",
-          acronym: "RES",
-          summary: "The set of applications and data protected behind the Zero Trust gateway.",
-          bullets: ["GitHub", "Database (Read Only)", "Brightree, Kinnser, Teams / Office 365"],
-          metrics: [
-            { label: "Resource protection", value: 92 },
-            { label: "Access consistency", value: 85 },
-            { label: "Operational continuity", value: 88 }
-          ]
+          title: t('nodeResTitle'), acronym: "RES",
+          summary: t('nodeResSummary'),
+          bullets: [t('nodeResB1'), t('nodeResB2'), t('nodeResB3')],
+          metrics: [{ label: t('nodeResM1'), value: 92 }, { label: t('nodeResM2'), value: 85 }, { label: t('nodeResM3'), value: 88 }]
         },
         LG: {
-          title: "Centralized Logs",
-          acronym: "LG",
-          summary: "Central event repository for monitoring, traceability, and compliance auditing.",
-          bullets: ["Event correlation", "Incident response", "Compliance evidence"],
-          metrics: [
-            { label: "Coverage", value: 93 },
-            { label: "Forensic readiness", value: 86 },
-            { label: "Alert quality", value: 82 }
-          ]
+          title: t('nodeLgTitle'), acronym: "LG",
+          summary: t('nodeLgSummary'),
+          bullets: [t('nodeLgB1'), t('nodeLgB2'), t('nodeLgB3')],
+          metrics: [{ label: t('nodeLgM1'), value: 93 }, { label: t('nodeLgM2'), value: 86 }, { label: t('nodeLgM3'), value: 82 }]
         }
-      };
+      } : {};
 
       const selectedInfo = selectedProcess ? processInfo[selectedProcess] : null;
 
