@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Security Architecture Explorer</title>
+  <title>Remote Team Security Architecture</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -162,8 +162,8 @@
         DEV: {
           title: "Developer",
           acronym: "DEV",
-          summary: "Usuario que inicia el flujo seguro desde el endpoint corporativo.",
-          bullets: ["Inicio de sesion", "Operaciones de desarrollo", "Generacion de actividad"],
+          summary: "The developer who initiates the secure flow from the corporate endpoint.",
+          bullets: ["Session initiation", "Development operations", "Activity generation"],
           metrics: [
             { label: "Identity check", value: 78 },
             { label: "Device trust", value: 86 },
@@ -184,8 +184,8 @@
         SSO: {
           title: "SSO + MFA",
           acronym: "SSO / MFA",
-          summary: "SSO (Single Sign-On) + MFA (Multi-Factor Authentication) para validar identidad.",
-          bullets: ["Autenticacion centralizada", "Segundo factor", "Contexto de acceso"],
+          summary: "SSO (Single Sign-On) + MFA (Multi-Factor Authentication) to validate identity before granting access.",
+          bullets: ["Centralized authentication", "Second factor enforcement", "Access context evaluation"],
           metrics: [
             { label: "Authentication strength", value: 95 },
             { label: "Session control", value: 84 },
@@ -195,7 +195,7 @@
         SECSM: {
           title: "Secrets Manager",
           acronym: "SECSM",
-          summary: "Gestion segura de secretos (tokens, llaves, credenciales) fuera del codigo.",
+          summary: "Secure management of secrets (tokens, keys, credentials) outside of source code.",
           bullets: ["Vault central", "Rotation policy", "Least privilege"],
           metrics: [
             { label: "Secret hygiene", value: 91 },
@@ -206,7 +206,7 @@
         ZT: {
           title: "Cloudflare Zero Trust",
           acronym: "ZT",
-          summary: "Control de acceso por identidad + postura + politica antes de llegar a recursos.",
+          summary: "Access control by identity, device posture, and policy before reaching any protected resource.",
           bullets: ["Policy enforcement", "Per-app authorization", "Access segmentation"],
           metrics: [
             { label: "Access governance", value: 94 },
@@ -217,8 +217,8 @@
         RES: {
           title: "Protected Resources",
           acronym: "RES",
-          summary: "Conjunto de aplicaciones y datos protegidos por el gateway de Zero Trust.",
-          bullets: ["GitHub", "Database (Read Only)", "Brightree, Kinnser, Temas/ Office 365"],
+          summary: "The set of applications and data protected behind the Zero Trust gateway.",
+          bullets: ["GitHub", "Database (Read Only)", "Brightree, Kinnser, Teams / Office 365"],
           metrics: [
             { label: "Resource protection", value: 92 },
             { label: "Access consistency", value: 85 },
@@ -228,7 +228,7 @@
         LG: {
           title: "Centralized Logs",
           acronym: "LG",
-          summary: "Repositorio central de eventos para monitoreo, trazabilidad y auditoria.",
+          summary: "Central event repository for monitoring, traceability, and compliance auditing.",
           bullets: ["Event correlation", "Incident response", "Compliance evidence"],
           metrics: [
             { label: "Coverage", value: 93 },
@@ -393,8 +393,8 @@
       if (!ReactFlowComp) {
         return (
           <div className="rounded-3xl border border-amber-200 bg-amber-50 p-4 text-amber-900">
-            <p className="font-bold">React Flow no cargo correctamente.</p>
-            <p className="text-sm">Revisa conexion/CDN y recarga la pagina.</p>
+            <p className="font-bold">React Flow failed to load.</p>
+            <p className="text-sm">Check your connection/CDN and reload the page.</p>
           </div>
         );
       }
@@ -436,24 +436,24 @@
               <div className="w-full max-w-2xl rounded-2xl border border-slate-200 bg-white shadow-2xl p-5" onClick={(e) => e.stopPropagation()}>
                 <div className="flex items-start justify-between gap-3 mb-3">
                   <div>
-                    <p className="text-xs uppercase tracking-widest text-slate-500 font-bold">Detalle de proceso</p>
+                    <p className="text-xs uppercase tracking-widest text-slate-500 font-bold">Component Detail</p>
                     <h4 className="text-xl font-heading font-bold text-slate-900">{selectedInfo.title}</h4>
-                    <p className="text-sm text-slate-600"><b>Siglas:</b> {selectedInfo.acronym}</p>
+                    <p className="text-sm text-slate-600"><b>Acronym:</b> {selectedInfo.acronym}</p>
                   </div>
-                  <button className="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 text-sm font-bold hover:bg-slate-50" onClick={() => setSelectedProcess(null)}>Cerrar</button>
+                  <button className="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 text-sm font-bold hover:bg-slate-50" onClick={() => setSelectedProcess(null)}>Close</button>
                 </div>
 
                 <p className="text-sm text-slate-700 mb-4">{selectedInfo.summary}</p>
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
-                    <p className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-2">Resumen rapido</p>
+                    <p className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-2">Quick Summary</p>
                     <ul className="space-y-1 text-sm text-slate-700">
                       {selectedInfo.bullets.map((item) => <li key={item}>- {item}</li>)}
                     </ul>
                   </div>
                   <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
-                    <p className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-2">Grafico explicativo</p>
+                    <p className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-2">Coverage Metrics</p>
                     <div className="space-y-2">
                       {selectedInfo.metrics.map((m) => (
                         <div key={m.label}>
@@ -474,56 +474,63 @@
     }
 
     function RiskTree({ layer }) {
-      const tone = {
-        blue: "bg-blue-50 border-blue-200 text-blue-700",
-        violet: "bg-violet-50 border-violet-200 text-violet-700",
-        teal: "bg-teal-50 border-teal-200 text-teal-700",
-        amber: "bg-amber-50 border-amber-200 text-amber-700"
-      }[layer.color];
-
       return (
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div className="flex flex-col items-center">
-            <div className={`border-2 rounded-2xl px-5 py-4 ${tone} flex items-center gap-3 font-bold`}>
-              <Icon name={layer.icon} className="w-5 h-5" />
-              <span>{layer.title}</span>
-            </div>
-            <div className="w-px h-8 bg-slate-200"></div>
-
-            <div className="max-w-3xl border-2 border-red-200 bg-red-50 rounded-2xl p-4 text-center">
-              <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-red-600 mb-2">
-                <Icon name="shield-alert" className="w-4 h-4" />
-                Critical Risk
-              </div>
-              <p className="text-sm text-red-900 font-medium">{layer.risk}</p>
-            </div>
-
-            <div className="w-px h-8 bg-slate-200"></div>
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm relative">
+          {/* SECURED badge */}
+          <div className="absolute top-5 right-5">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#16A34A] text-white text-xs font-bold px-3 py-1">
+              <Icon name="shield-check" className="w-3.5 h-3.5" />
+              SECURED
+            </span>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-4">
-            <div className="rounded-2xl border border-slate-200 p-4 bg-slate-50">
-              <div className="text-xs font-bold uppercase tracking-widest text-indigo-600 mb-3 flex items-center gap-2">
+          {/* Layer header */}
+          <div className="flex items-center gap-3 mb-5">
+            <div className="h-10 w-10 rounded-xl bg-[#0F172A] text-white grid place-items-center">
+              <Icon name={layer.icon} className="w-5 h-5" />
+            </div>
+            <span className="font-heading font-bold text-[#0F172A] text-lg">{layer.title}</span>
+          </div>
+
+          {/* Risk block */}
+          <div className="border-l-4 border-l-red-600 bg-white border border-slate-200 rounded-r-xl px-4 py-3 mb-5">
+            <div className="flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-red-600 mb-1.5">
+              <Icon name="shield-alert" className="w-4 h-4" />
+              Critical Risk
+            </div>
+            <p className="text-sm text-slate-700 leading-relaxed">{layer.risk}</p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-4">
+            {/* Still Protected */}
+            <div className="border-l-4 border-l-[#2563EB] bg-white border border-slate-200 rounded-r-xl px-4 py-3">
+              <div className="text-xs font-bold uppercase tracking-widest text-[#2563EB] mb-2 flex items-center gap-2">
                 <Icon name="lock" className="w-4 h-4" />
                 Still Protected
               </div>
-              <ul className="space-y-2 text-xs text-slate-600">
-                {layer.protected.map((item) => <li key={item} className="flex gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-300"></span>{item}</li>)}
+              <ul className="space-y-1.5 text-xs text-slate-600">
+                {layer.protected.map((item) => (
+                  <li key={item} className="flex gap-2 items-start">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#2563EB] flex-shrink-0"></span>
+                    {item}
+                  </li>
+                ))}
               </ul>
             </div>
 
-            <div className="rounded-2xl border-2 border-emerald-200 p-4 bg-emerald-50 text-center flex flex-col items-center justify-center">
-              <Icon name="shield-check" className="w-9 h-9 text-emerald-500 mb-2" />
-              <p className="text-emerald-900 font-bold text-sm uppercase tracking-wide">{layer.secured}</p>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 p-4 bg-slate-50">
-              <div className="text-xs font-bold uppercase tracking-widest text-emerald-600 mb-3 flex items-center gap-2">
+            {/* Mitigations */}
+            <div className="border-l-4 border-l-[#16A34A] bg-white border border-slate-200 rounded-r-xl px-4 py-3">
+              <div className="text-xs font-bold uppercase tracking-widest text-[#16A34A] mb-2 flex items-center gap-2">
                 <Icon name="check-circle-2" className="w-4 h-4" />
                 Mitigations
               </div>
-              <ul className="space-y-2 text-xs text-slate-600">
-                {layer.mitigations.map((item) => <li key={item} className="flex gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400"></span>{item}</li>)}
+              <ul className="space-y-1.5 text-xs text-slate-600">
+                {layer.mitigations.map((item) => (
+                  <li key={item} className="flex gap-2 items-start">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#16A34A] flex-shrink-0"></span>
+                    {item}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -535,8 +542,64 @@
       const [activeLayerId, setActiveLayerId] = useState("device");
       const [audience, setAudience] = useState("direccion");
       const [isExporting, setIsExporting] = useState(false);
+      const [expandedCard, setExpandedCard] = useState(null);
       const reportRef = useRef(null);
+      const canvasRef = useRef(null);
       const activeLayer = useMemo(() => layers.find((l) => l.id === activeLayerId) || layers[0], [activeLayerId]);
+
+      useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        const W = canvas.offsetWidth;
+        const H = canvas.offsetHeight;
+        canvas.width = W;
+        canvas.height = H;
+        const NUM = 30;
+        const dots = Array.from({ length: NUM }, () => ({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4
+        }));
+        let rafId;
+        let last = 0;
+        const INTERVAL = 1000 / 30;
+        function draw(ts) {
+          rafId = requestAnimationFrame(draw);
+          if (ts - last < INTERVAL) return;
+          last = ts;
+          ctx.clearRect(0, 0, W, H);
+          dots.forEach((d) => {
+            d.x += d.vx;
+            d.y += d.vy;
+            if (d.x < 0 || d.x > W) d.vx *= -1;
+            if (d.y < 0 || d.y > H) d.vy *= -1;
+          });
+          for (let i = 0; i < NUM; i++) {
+            for (let j = i + 1; j < NUM; j++) {
+              const dx = dots[i].x - dots[j].x;
+              const dy = dots[i].y - dots[j].y;
+              if (Math.sqrt(dx * dx + dy * dy) < 120) {
+                ctx.beginPath();
+                ctx.moveTo(dots[i].x, dots[i].y);
+                ctx.lineTo(dots[j].x, dots[j].y);
+                ctx.strokeStyle = "rgba(37,99,235,0.05)";
+                ctx.lineWidth = 1;
+                ctx.stroke();
+              }
+            }
+          }
+          dots.forEach((d) => {
+            ctx.beginPath();
+            ctx.arc(d.x, d.y, 1.5, 0, Math.PI * 2);
+            ctx.fillStyle = "rgba(37,99,235,0.15)";
+            ctx.fill();
+          });
+        }
+        rafId = requestAnimationFrame(draw);
+        return () => cancelAnimationFrame(rafId);
+      }, []);
 
       const exportPdf = async () => {
         if (!reportRef.current) return;
@@ -607,52 +670,190 @@
       });
 
       return (
-        <div className="min-h-screen bg-slate-50 text-slate-900">
-          <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
+        <div className="min-h-screen bg-[#F8FAFC] text-slate-900 font-body">
+          {/* Header */}
+          <header className="sticky top-0 z-40 bg-[#0F172A]" style={{ boxShadow: "0 1px 0 0 #2563EB" }}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="h-9 w-9 rounded-xl bg-brand-700 text-white grid place-items-center">
-                  <Icon name="shield" className="w-5 h-5" />
-                </div>
-                <div>
-                  <h1 className="font-heading text-lg font-semibold tracking-tight">Security Architecture Explorer</h1>
-                  <p className="text-xs text-slate-500">Executive + Technical interactive view</p>
-                </div>
+                <Icon name="lock" className="w-5 h-5 text-white" />
+                <span className="font-heading text-lg font-bold text-white tracking-tight">SecureFlow</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-slate-500">
-                <span className="px-2 py-1 rounded-full bg-red-100 text-red-700 font-bold">4/4 HIGH</span>
-                <span className="px-2 py-1 rounded-full bg-emerald-100 text-emerald-700 font-bold">Zero Trust posture</span>
-                <button onClick={exportPdf} className="inline-flex items-center gap-1 px-2 py-1 rounded-md border border-slate-300 bg-white text-slate-700 font-bold hover:bg-slate-50">
-                  <Icon name="file-down" className="w-3 h-3" />
-                  Exportar PDF
-                </button>
-              </div>
+              <button onClick={exportPdf} className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-white/30 text-white text-sm font-semibold hover:bg-white/10 transition">
+                <Icon name="file-down" className="w-4 h-4" />
+                Export PDF
+              </button>
             </div>
+            <div className="h-0.5 bg-[#2563EB]"></div>
           </header>
 
-          <main ref={reportRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
-            <section className="rounded-3xl bg-gradient-to-r from-slate-900 via-blue-900 to-cyan-800 text-white p-8 shadow-xl">
-              <h2 className="font-heading text-3xl font-bold tracking-tight mb-3">Interactive Defense Strategy</h2>
-              <p className="max-w-3xl text-slate-200">
-                Visualizacion profesional del flujo seguro y del risk register completo en formato diagrama.
-                Sin tabla: cada capa se explora como arbol de riesgo con controles y mitigaciones.
+          <main ref={reportRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+            <style>{`
+              @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+              .fade-in-up { opacity: 0; animation: fadeInUp 0.6s ease forwards; }
+              .fade-in-up-1 { animation-delay: 0.1s; }
+              .fade-in-up-2 { animation-delay: 0.25s; }
+              .fade-in-up-3 { animation-delay: 0.4s; }
+              @keyframes drawLine { from { width: 0; } to { width: 100%; } }
+              .draw-line { animation: drawLine 1s ease forwards; animation-delay: 0.3s; }
+            `}</style>
+            {/* Hero */}
+            <section className="relative overflow-hidden bg-white border-l-4 border-[#2563EB] rounded-r-2xl px-8 py-8 shadow-sm">
+              <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" style={{ pointerEvents: 'none' }} />
+              <h2 className="font-heading text-3xl font-bold text-[#0F172A] tracking-tight mb-2">Remote Team Security Architecture</h2>
+              <p className="max-w-3xl text-slate-500 text-base leading-relaxed">
+                A defense-in-depth framework protecting developer endpoints, identities, code, secrets, and access — with full audit visibility.
               </p>
-              <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-3 text-sm">
-                <div className="rounded-xl bg-white/10 border border-white/20 p-3"><b className="block text-xl">4</b>Risk Layers</div>
-                <div className="rounded-xl bg-white/10 border border-white/20 p-3"><b className="block text-xl">6</b>Protected Resources</div>
-                <div className="rounded-xl bg-white/10 border border-white/20 p-3"><b className="block text-xl">4</b>Critical Scenarios</div>
-                <div className="rounded-xl bg-white/10 border border-white/20 p-3"><b className="block text-xl">2</b>Audience Views</div>
+              <div className="mt-7 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="bg-white rounded-xl border border-slate-200 border-l-4 border-l-[#2563EB] px-5 py-4 shadow-sm">
+                  <span className="block text-3xl font-heading font-bold text-[#0F172A]">4</span>
+                  <span className="text-sm text-slate-500 mt-1 block">Security Layers</span>
+                </div>
+                <div className="bg-white rounded-xl border border-slate-200 border-l-4 border-l-[#2563EB] px-5 py-4 shadow-sm">
+                  <span className="block text-3xl font-heading font-bold text-[#0F172A]">6</span>
+                  <span className="text-sm text-slate-500 mt-1 block">Protected Resources</span>
+                </div>
+                <div className="bg-white rounded-xl border border-slate-200 border-l-4 border-l-[#2563EB] px-5 py-4 shadow-sm">
+                  <span className="block text-3xl font-heading font-bold text-[#0F172A]">4</span>
+                  <span className="text-sm text-slate-500 mt-1 block">Threat Scenarios</span>
+                </div>
+                <div className="bg-white rounded-xl border border-slate-200 border-l-4 border-l-[#2563EB] px-5 py-4 shadow-sm">
+                  <span className="block text-3xl font-heading font-bold text-[#0F172A]">2</span>
+                  <span className="text-sm text-slate-500 mt-1 block">Audience Views</span>
+                </div>
               </div>
             </section>
 
+            {/* Defense in Depth */}
+            <section className="bg-white rounded-2xl border border-slate-200 shadow-sm px-8 py-8">
+              <h3 className="font-heading text-2xl font-bold text-[#0F172A] mb-2">How It Works: Defense in Depth</h3>
+              <p className="text-slate-500 text-sm max-w-3xl leading-relaxed mb-8">
+                No single control is sufficient. This architecture layers five complementary mechanisms so that if one is bypassed, the others remain intact. Identity confirms who the person is. MDM confirms the device is corporate and compliant. Zero Trust gates whether access should be granted. Code and secrets platforms limit exposure of critical assets. Observability centralizes evidence for audit and investigation.
+              </p>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="fade-in-up fade-in-up-1 bg-white rounded-xl border border-slate-200 border-l-4 border-l-blue-600 px-6 py-5 shadow-sm">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Icon name="shield-check" className="w-6 h-6 text-blue-600" />
+                    <span className="font-heading font-bold text-[#0F172A] text-base">Never Trust, Always Verify</span>
+                  </div>
+                  <p className="text-slate-500 text-sm leading-relaxed">Every access request is evaluated against identity, device posture, session context, and resource policy — regardless of network location.</p>
+                </div>
+                <div className="fade-in-up fade-in-up-2 bg-white rounded-xl border border-slate-200 border-l-4 border-l-blue-600 px-6 py-5 shadow-sm">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Icon name="layers" className="w-6 h-6 text-blue-600" />
+                    <span className="font-heading font-bold text-[#0F172A] text-base">Minimize Blast Radius</span>
+                  </div>
+                  <p className="text-slate-500 text-sm leading-relaxed">Each control layer operates independently. Compromising one layer does not automatically compromise the others. Lateral movement is blocked at every boundary.</p>
+                </div>
+                <div className="fade-in-up fade-in-up-3 bg-white rounded-xl border border-slate-200 border-l-4 border-l-blue-600 px-6 py-5 shadow-sm">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Icon name="eye" className="w-6 h-6 text-blue-600" />
+                    <span className="font-heading font-bold text-[#0F172A] text-base">Full Audit Visibility</span>
+                  </div>
+                  <p className="text-slate-500 text-sm leading-relaxed">All authentication events, access decisions, secret reads, code changes, and administrative actions are forwarded to a centralized log backend for correlation and investigation.</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Architecture Layers at a Glance */}
             <section>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-heading text-2xl font-bold">Secure Information Flow</h3>
-                <span className="text-xs uppercase tracking-wider text-slate-500">React Flow canvas</span>
+              <div className="mb-5">
+                <h3 className="font-heading text-2xl font-bold text-[#0F172A] mb-1">Architecture Layers at a Glance</h3>
+                <p className="text-slate-500 text-sm max-w-3xl leading-relaxed">
+                  Six interdependent control layers form a complete security chain. Each layer answers a distinct question about trustworthiness — from the endpoint to the audit log.
+                </p>
+              </div>
+              <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                  <thead>
+                    <tr style={{ backgroundColor: "#0F172A" }}>
+                      <th style={{ padding: "12px 16px", textAlign: "left", color: "white", fontFamily: "Sora, sans-serif", fontSize: "13px", fontWeight: 600, letterSpacing: "0.05em" }}>Layer</th>
+                      <th style={{ padding: "12px 16px", textAlign: "left", color: "white", fontFamily: "Sora, sans-serif", fontSize: "13px", fontWeight: 600, letterSpacing: "0.05em" }}>Primary Component</th>
+                      <th style={{ padding: "12px 16px", textAlign: "left", color: "white", fontFamily: "Sora, sans-serif", fontSize: "13px", fontWeight: 600, letterSpacing: "0.05em" }}>Key Question</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style={{ backgroundColor: "#F8FAFC" }}>
+                      <td style={{ padding: "12px 16px", borderBottom: "1px solid #E2E8F0" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                          <Icon name="laptop" className="w-4 h-4 text-blue-600" />
+                          <span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "50%", backgroundColor: "#2563EB", marginRight: "4px" }}></span>
+                          <span style={{ fontWeight: 600, fontSize: "13px", color: "#0F172A" }}>Device</span>
+                        </div>
+                      </td>
+                      <td style={{ padding: "12px 16px", borderBottom: "1px solid #E2E8F0", fontSize: "13px", color: "#475569" }}>Jamf / Kandji (MDM)</td>
+                      <td style={{ padding: "12px 16px", borderBottom: "1px solid #E2E8F0", fontSize: "13px", color: "#475569" }}>What device is this — and is it trusted and compliant?</td>
+                    </tr>
+                    <tr style={{ backgroundColor: "white" }}>
+                      <td style={{ padding: "12px 16px", borderBottom: "1px solid #E2E8F0" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                          <Icon name="fingerprint" className="w-4 h-4 text-violet-600" />
+                          <span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "50%", backgroundColor: "#7C3AED", marginRight: "4px" }}></span>
+                          <span style={{ fontWeight: 600, fontSize: "13px", color: "#0F172A" }}>Identity</span>
+                        </div>
+                      </td>
+                      <td style={{ padding: "12px 16px", borderBottom: "1px solid #E2E8F0", fontSize: "13px", color: "#475569" }}>Entra ID / Google Workspace</td>
+                      <td style={{ padding: "12px 16px", borderBottom: "1px solid #E2E8F0", fontSize: "13px", color: "#475569" }}>Who is the person and how are they authenticated?</td>
+                    </tr>
+                    <tr style={{ backgroundColor: "#F8FAFC" }}>
+                      <td style={{ padding: "12px 16px", borderBottom: "1px solid #E2E8F0" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                          <Icon name="globe" className="w-4 h-4 text-amber-600" />
+                          <span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "50%", backgroundColor: "#D97706", marginRight: "4px" }}></span>
+                          <span style={{ fontWeight: 600, fontSize: "13px", color: "#0F172A" }}>Access</span>
+                        </div>
+                      </td>
+                      <td style={{ padding: "12px 16px", borderBottom: "1px solid #E2E8F0", fontSize: "13px", color: "#475569" }}>Cloudflare Zero Trust / Tailscale</td>
+                      <td style={{ padding: "12px 16px", borderBottom: "1px solid #E2E8F0", fontSize: "13px", color: "#475569" }}>Should this connection to this resource be permitted?</td>
+                    </tr>
+                    <tr style={{ backgroundColor: "white" }}>
+                      <td style={{ padding: "12px 16px", borderBottom: "1px solid #E2E8F0" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                          <Icon name="git-branch" className="w-4 h-4 text-green-600" />
+                          <span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "50%", backgroundColor: "#16A34A", marginRight: "4px" }}></span>
+                          <span style={{ fontWeight: 600, fontSize: "13px", color: "#0F172A" }}>Code</span>
+                        </div>
+                      </td>
+                      <td style={{ padding: "12px 16px", borderBottom: "1px solid #E2E8F0", fontSize: "13px", color: "#475569" }}>GitHub Team / Enterprise</td>
+                      <td style={{ padding: "12px 16px", borderBottom: "1px solid #E2E8F0", fontSize: "13px", color: "#475569" }}>Where does code live and how is its access governed?</td>
+                    </tr>
+                    <tr style={{ backgroundColor: "#F8FAFC" }}>
+                      <td style={{ padding: "12px 16px", borderBottom: "1px solid #E2E8F0" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                          <Icon name="key-round" className="w-4 h-4 text-teal-600" />
+                          <span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "50%", backgroundColor: "#0891B2", marginRight: "4px" }}></span>
+                          <span style={{ fontWeight: 600, fontSize: "13px", color: "#0F172A" }}>Secrets</span>
+                        </div>
+                      </td>
+                      <td style={{ padding: "12px 16px", borderBottom: "1px solid #E2E8F0", fontSize: "13px", color: "#475569" }}>1Password / Bitwarden / Secrets Manager</td>
+                      <td style={{ padding: "12px 16px", borderBottom: "1px solid #E2E8F0", fontSize: "13px", color: "#475569" }}>Where are credentials and API keys stored?</td>
+                    </tr>
+                    <tr style={{ backgroundColor: "white" }}>
+                      <td style={{ padding: "12px 16px" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                          <Icon name="activity" className="w-4 h-4 text-red-600" />
+                          <span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "50%", backgroundColor: "#DC2626", marginRight: "4px" }}></span>
+                          <span style={{ fontWeight: 600, fontSize: "13px", color: "#0F172A" }}>Observability</span>
+                        </div>
+                      </td>
+                      <td style={{ padding: "12px 16px", fontSize: "13px", color: "#475569" }}>Centralized Log Backend</td>
+                      <td style={{ padding: "12px 16px", fontSize: "13px", color: "#475569" }}>What happened, when, from what device, and with what result?</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            {/* Secure Information Flow */}
+            <section>
+              <div className="mb-5">
+                <h3 className="font-heading text-2xl font-bold text-[#0F172A] mb-1">Secure Information Flow</h3>
+                <p className="text-slate-500 text-sm max-w-3xl leading-relaxed">
+                  This diagram illustrates how a developer's request travels from their corporate Mac through identity verification and Zero Trust access control before reaching any protected resource. Every connection is authenticated, authorized, and logged.
+                </p>
               </div>
               {!isExporting && <SecureFlowReactFlow isExporting={isExporting} />}
               {isExporting && (
-                <div className="rounded-3xl border border-slate-200 bg-white shadow-sm p-3 overflow-hidden">
+                <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-3 overflow-hidden">
                   <div className="relative bg-white">
                     <img
                       src={FLOW_EXPORT_IMAGE_URL}
@@ -665,22 +866,110 @@
               )}
             </section>
 
+            {/* Component Deep-Dives */}
             <section>
-              <div className="flex flex-wrap items-center justify-between gap-4 mb-5">
-                <h3 className="font-heading text-2xl font-bold">Risk Register Completo - Visual</h3>
-                {!isExporting && <div className="flex gap-2">
+              <div className="mb-5">
+                <h3 className="font-heading text-2xl font-bold text-[#0F172A] mb-1">Component Deep-Dives</h3>
+                <p className="text-slate-500 text-sm max-w-3xl leading-relaxed">
+                  Each security layer is built around a specific platform or tool. Expand any card to see the key capabilities it provides.
+                </p>
+              </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {[
+                  {
+                    id: "mdm", color: "#2563EB", icon: "laptop", badge: "5 controls",
+                    title: "Device Layer — Jamf / Kandji MDM",
+                    desc: "Corporate Macs are the first security control point. MDM platforms enforce a mandatory baseline across the entire device fleet — automatically, at scale.",
+                    bullets: ["Automatic enrollment via Apple Business Manager", "FileVault disk encryption enforced across all devices", "Mandatory installation of Zero Trust client and secrets manager", "macOS update policies and software compliance checks", "Remote lock, wipe, and quarantine capabilities"]
+                  },
+                  {
+                    id: "sso", color: "#7C3AED", icon: "fingerprint", badge: "4 controls",
+                    title: "Identity Layer — SSO + MFA",
+                    desc: "Single Sign-On centralizes authentication across all platforms. Disabling one account immediately revokes access everywhere — no orphaned sessions.",
+                    bullets: ["Universal MFA enforced for all developer and admin accounts", "SAML SSO integration with GitHub, Brightree, Kinnser, and Teams", "Conditional Access policies based on user risk and session context", "Centralized audit of logins, MFA failures, and group changes"]
+                  },
+                  {
+                    id: "zt", color: "#D97706", icon: "globe", badge: "4 controls",
+                    title: "Access Layer — Cloudflare Zero Trust",
+                    desc: "Zero Trust replaces implicit network trust with per-request verification. Resources are never exposed directly — access is always brokered and logged.",
+                    bullets: ["Per-application access policies based on identity and device posture", "No internal services exposed directly to the internet", "Full audit log: who connected, to what, when, and from where", "Supports both Cloudflare Zero Trust and Tailscale mesh VPN"]
+                  },
+                  {
+                    id: "github", color: "#16A34A", icon: "git-branch", badge: "4 controls",
+                    title: "Code Layer — GitHub",
+                    desc: "GitHub is the hub of the development workflow. Access is governed by SSO, branch protection prevents unauthorized merges, and secret scanning catches leaked credentials.",
+                    bullets: ["SSO mandatory for all organization members", "Branch protection and required reviews on main branches", "GitHub Secret Scanning enabled to detect committed credentials", "Audit log for permissions changes, token usage, and admin actions"]
+                  },
+                  {
+                    id: "secrets", color: "#0891B2", icon: "key-round", badge: "5 controls",
+                    title: "Secrets Layer — 1Password / Bitwarden",
+                    desc: "Secrets are stored in dedicated vaults — never in code, chat, or config files. Access is audited, rotation is enforced, and revocation is immediate.",
+                    bullets: ["Human credentials in 1Password or Bitwarden Teams vaults", "Machine credentials via cloud Secrets Manager with dynamic rotation", "Vault access governed by SSO and device posture", "Full audit trail: reads, edits, rotations, and permission changes", "Immediate revocation capability for compromised secrets"]
+                  },
+                  {
+                    id: "obs", color: "#DC2626", icon: "activity", badge: "6 sources",
+                    title: "Observability Layer — Centralized Logs",
+                    desc: "All security-relevant events — from every layer — are forwarded to a single log backend. This enables detection, correlation, forensic investigation, and compliance evidence.",
+                    bullets: ["Identity events: logins, MFA, failures, account changes", "Device events: MDM enrollment, compliance status, remote actions", "Access events: Zero Trust decisions, connections, and blocks", "Code events: GitHub repo access, admin changes, secret alerts", "Secret events: vault reads, rotations, permission changes", "Infrastructure events: DB auth, API calls, admin operations"]
+                  }
+                ].map((card) => (
+                  <div
+                    key={card.id}
+                    className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+                    style={{ borderTop: `4px solid ${card.color}` }}
+                    onClick={() => setExpandedCard(expandedCard === card.id ? null : card.id)}
+                  >
+                    <div className="px-5 py-4">
+                      <div className="flex items-start justify-between gap-3 mb-2">
+                        <div className="flex items-center gap-2">
+                          <Icon name={card.icon} className="w-5 h-5" style={{ color: card.color }} />
+                          <span className="font-heading font-bold text-[#0F172A] text-sm">{card.title}</span>
+                        </div>
+                        <span className="shrink-0 text-xs font-bold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: card.color }}>{card.badge}</span>
+                      </div>
+                      <p className="text-slate-500 text-xs leading-relaxed mb-3">{card.desc}</p>
+                      <div className="flex items-center gap-1 text-xs font-semibold" style={{ color: card.color }}>
+                        <Icon name={expandedCard === card.id ? "chevron-up" : "chevron-down"} className="w-3 h-3" />
+                        {expandedCard === card.id ? "Hide capabilities" : "Show capabilities"}
+                      </div>
+                      {expandedCard === card.id && (
+                        <ul className="mt-3 space-y-1.5">
+                          {card.bullets.map((b, i) => (
+                            <li key={i} className="flex items-start gap-2 text-xs text-slate-600">
+                              <span className="mt-1 shrink-0 w-1.5 h-1.5 rounded-full" style={{ backgroundColor: card.color }}></span>
+                              {b}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Threat Layer Analysis */}
+            <section>
+              <div className="mb-5">
+                <h3 className="font-heading text-2xl font-bold text-[#0F172A] mb-1">Threat Layer Analysis</h3>
+                <p className="text-slate-500 text-sm max-w-3xl leading-relaxed">
+                  Each security layer has been analyzed for its primary threat scenario, the controls that remain effective even when that layer is compromised, and the concrete mitigations required to close the gap.
+                </p>
+              </div>
+              {!isExporting && (
+                <div className="flex flex-wrap gap-2 mb-5">
                   {layers.map((layer) => (
                     <button
                       key={layer.id}
                       onClick={() => setActiveLayerId(layer.id)}
-                      className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold border transition ${activeLayerId === layer.id ? "bg-brand-700 text-white border-brand-700 shadow" : "bg-white text-slate-700 border-slate-200 hover:border-brand-300"}`}
+                      className={`inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition ${activeLayerId === layer.id ? "bg-[#2563EB] text-white shadow-sm" : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50"}`}
                     >
                       <Icon name={layer.icon} className="w-4 h-4" />
                       {layer.title}
                     </button>
                   ))}
-                </div>}
-              </div>
+                </div>
+              )}
               {!isExporting && <RiskTree layer={activeLayer} />}
               {isExporting && (
                 <div className="space-y-6">
@@ -694,33 +983,50 @@
               )}
             </section>
 
-            <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-              {!isExporting && <div className="flex items-center justify-between gap-3 mb-4">
-                <h3 className="font-heading text-xl font-bold">Secciones por audiencia</h3>
-                <div className="inline-flex rounded-xl border border-slate-200 p-1 bg-slate-50">
-                  <button onClick={() => setAudience("direccion")} className={`px-4 py-2 rounded-lg text-sm font-bold ${audience === "direccion" ? "bg-white shadow text-slate-900" : "text-slate-500"}`}>Direccion</button>
-                  <button onClick={() => setAudience("tecnicos")} className={`px-4 py-2 rounded-lg text-sm font-bold ${audience === "tecnicos" ? "bg-white shadow text-slate-900" : "text-slate-500"}`}>Tecnicos</button>
-                </div>
-              </div>}
+            {/* Stakeholder Perspectives */}
+            <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div className="mb-5">
+                <h3 className="font-heading text-2xl font-bold text-[#0F172A] mb-1">Stakeholder Perspectives</h3>
+                <p className="text-slate-500 text-sm max-w-3xl leading-relaxed">
+                  This architecture is presented through two lenses: a business risk summary for leadership, and a technical controls checklist for the engineering team.
+                </p>
+              </div>
 
-              {isExporting && <h3 className="font-heading text-xl font-bold mb-4">Secciones por audiencia</h3>}
+              {!isExporting && (
+                <div className="flex gap-2 mb-6">
+                  <button
+                    onClick={() => setAudience("direccion")}
+                    className={`inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition ${audience === "direccion" ? "bg-[#2563EB] text-white shadow-sm" : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50"}`}
+                  >
+                    Executive View
+                  </button>
+                  <button
+                    onClick={() => setAudience("tecnicos")}
+                    className={`inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition ${audience === "tecnicos" ? "bg-[#2563EB] text-white shadow-sm" : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50"}`}
+                  >
+                    Engineering View
+                  </button>
+                </div>
+              )}
+
+              {isExporting && <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Executive View + Engineering View</p>}
 
               {(audience === "direccion" || isExporting) && (
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
-                    <p className="text-xs uppercase tracking-widest font-bold text-amber-700 mb-2">Business Risk</p>
-                    <ul className="text-sm text-amber-900 space-y-2">
-                      <li>Todos los escenarios son HIGH y pueden afectar continuidad, reputacion y cumplimiento.</li>
-                      <li>El diseno por capas reduce blast radius, pero requiere cierre de brechas para madurez operativa.</li>
-                      <li>Prioridad ejecutiva: MFA universal, secrets governance y Zero Trust access control.</li>
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
+                  <div className="rounded-xl border border-slate-200 border-l-4 border-l-[#D97706] bg-amber-50 p-5">
+                    <p className="text-xs uppercase tracking-widest font-bold text-[#D97706] mb-3">Business Risk</p>
+                    <ul className="text-sm text-slate-700 space-y-2">
+                      <li>All four threat scenarios are rated HIGH and can affect business continuity, reputation, and compliance.</li>
+                      <li>The layered design reduces blast radius, but open gaps must be closed for operational maturity.</li>
+                      <li>Executive priorities: universal MFA, secrets governance, and Zero Trust access control.</li>
                     </ul>
                   </div>
-                  <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                    <p className="text-xs uppercase tracking-widest font-bold text-slate-700 mb-2">Roadmap 1-5 weeks</p>
+                  <div className="rounded-xl border border-slate-200 border-l-4 border-l-[#0F172A] bg-slate-50 p-5">
+                    <p className="text-xs uppercase tracking-widest font-bold text-slate-600 mb-3">Roadmap — 1 to 5 Weeks</p>
                     <ul className="text-sm text-slate-700 space-y-2">
-                      <li>Week 1-2: MFA + Conditional Access en todas las plataformas.</li>
-                      <li>Week 2-4: FileVault + MDM obligatorio para endpoints corporativos.</li>
-                      <li>Week 3-5: Zero Trust por app + logging central para trazabilidad.</li>
+                      <li>Week 1–2: MFA + Conditional Access enforced across all platforms.</li>
+                      <li>Week 2–4: FileVault + MDM mandatory for all corporate endpoints.</li>
+                      <li>Week 3–5: Zero Trust per-app access + central logging for full traceability.</li>
                     </ul>
                   </div>
                 </div>
@@ -728,26 +1034,189 @@
 
               {(audience === "tecnicos" || isExporting) && (
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div className="rounded-2xl border border-blue-200 bg-blue-50 p-4">
-                    <p className="text-xs uppercase tracking-widest font-bold text-blue-700 mb-2">Technical Controls</p>
-                    <ul className="text-sm text-blue-900 space-y-2">
-                      <li>Endpoint hardening: FileVault, Jamf/Kandji, password policy >= 12.</li>
+                  <div className="rounded-xl border border-slate-200 border-l-4 border-l-[#2563EB] bg-blue-50 p-5">
+                    <p className="text-xs uppercase tracking-widest font-bold text-[#2563EB] mb-3">Technical Controls</p>
+                    <ul className="text-sm text-slate-700 space-y-2">
+                      <li>Endpoint hardening: FileVault, Jamf/Kandji MDM, password policy min 12 chars.</li>
                       <li>Identity hardening: Entra ID SSO, MFA enforcement, access policy audit.</li>
-                      <li>Secrets hygiene: vault only, secret scanning, branch protection, key rotation.</li>
+                      <li>Secrets hygiene: vault-only storage, secret scanning, branch protection, key rotation.</li>
                     </ul>
                   </div>
-                  <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
-                    <p className="text-xs uppercase tracking-widest font-bold text-emerald-700 mb-2">Validation Checklist</p>
-                    <ul className="text-sm text-emerald-900 space-y-2">
-                      <li>Verificar que DB solo acepte acceso por gateway autorizado.</li>
-                      <li>Correlacionar eventos de GitHub + Zero Trust en central logs.</li>
-                      <li>Probar revocacion de usuario en SSO y validar corte inmediato.</li>
+                  <div className="rounded-xl border border-slate-200 border-l-4 border-l-[#16A34A] bg-emerald-50 p-5">
+                    <p className="text-xs uppercase tracking-widest font-bold text-[#16A34A] mb-3">Validation Checklist</p>
+                    <ul className="text-sm text-slate-700 space-y-2">
+                      <li>Verify that the database only accepts connections through the authorized gateway.</li>
+                      <li>Correlate GitHub and Zero Trust events in central logs for unified audit trails.</li>
+                      <li>Test user revocation in SSO and confirm immediate access cutoff across all platforms.</li>
                     </ul>
                   </div>
                 </div>
               )}
             </section>
+            {/* Operational Lifecycle */}
+            <section>
+              <div className="mb-6">
+                <h3 className="font-heading text-2xl font-bold text-[#0F172A] mb-1">Operational Lifecycle</h3>
+                <p className="text-slate-500 text-sm max-w-3xl leading-relaxed">
+                  The architecture supports three critical phases of the developer lifecycle. Each phase has defined controls, handoffs between layers, and generates audit evidence.
+                </p>
+              </div>
+              <div className="flex flex-col lg:flex-row items-stretch gap-0">
+                {[
+                  {
+                    id: "onboarding", color: "#2563EB", bg: "#EFF6FF", icon: "user-plus", label: "Onboarding",
+                    steps: [
+                      "Mac registered in Apple Business Manager",
+                      "MDM auto-enrolls and hardens the device",
+                      "Corporate identity created in IdP",
+                      "Access granted to GitHub and secrets vault",
+                      "Zero Trust publishes only required resources",
+                      "All events logged from day zero"
+                    ]
+                  },
+                  {
+                    id: "daily", color: "#16A34A", bg: "#F0FDF4", icon: "monitor", label: "Daily Operations",
+                    steps: [
+                      "Developer authenticates via SSO + MFA",
+                      "Zero Trust verifies identity, group, and device posture",
+                      "Access to GitHub, internal apps, and secrets vault granted",
+                      "Every critical interaction generates audit logs",
+                      "Anomaly detection and alerts active"
+                    ]
+                  },
+                  {
+                    id: "offboarding", color: "#DC2626", bg: "#FEF2F2", icon: "user-x", label: "Offboarding / Incident Response",
+                    steps: [
+                      "Identity disabled in IdP — all SSO sessions revoked",
+                      "Access to GitHub, secrets, and all apps removed",
+                      "Remote lock or wipe executed on corporate Mac",
+                      "All residual tokens and credentials rotated",
+                      "Full audit trail preserved for review"
+                    ]
+                  }
+                ].map((phase, idx, arr) => (
+                  <React.Fragment key={phase.id}>
+                    <div className="flex-1 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" style={{ borderTop: `4px solid ${phase.color}` }}>
+                      <div className="px-6 py-5">
+                        <div className="flex items-center gap-3 mb-4">
+                          <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: phase.bg }}>
+                            <Icon name={phase.icon} className="w-5 h-5" style={{ color: phase.color }} />
+                          </div>
+                          <span className="font-heading font-bold text-[#0F172A] text-sm">{phase.label}</span>
+                        </div>
+                        <ul className="space-y-2">
+                          {phase.steps.map((step, i) => (
+                            <li key={i} className="flex items-start gap-2 text-xs text-slate-600">
+                              <span className="mt-1 shrink-0 w-2 h-2 rounded-full" style={{ backgroundColor: phase.color }}></span>
+                              {step}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                    {idx < arr.length - 1 && (
+                      <div className="hidden lg:flex items-center justify-center w-8 shrink-0">
+                        <div className="draw-line h-0.5 w-full" style={{ backgroundColor: "#CBD5E1", backgroundImage: "repeating-linear-gradient(to right, #CBD5E1 0, #CBD5E1 6px, transparent 6px, transparent 12px)" }}></div>
+                      </div>
+                    )}
+                  </React.Fragment>
+                ))}
+              </div>
+            </section>
+
+            {/* Risks This Architecture Mitigates */}
+            <section>
+              <div className="mb-5">
+                <h3 className="font-heading text-2xl font-bold text-[#0F172A] mb-1">6 Threats Addressed</h3>
+                <p className="text-slate-500 text-sm max-w-3xl leading-relaxed">
+                  This architecture was designed to close the most common attack vectors facing distributed development teams.
+                </p>
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {[
+                  { icon: "user-x", title: "Stolen Credentials", desc: "MFA and SSO ensure stolen passwords alone cannot grant access to any protected resource." },
+                  { icon: "laptop", title: "Unmanaged Devices", desc: "MDM enrollment is mandatory. Non-enrolled devices are blocked by Zero Trust device posture checks." },
+                  { icon: "code", title: "Secrets in Code", desc: "Secret scanning detects committed credentials. Vault governance keeps secrets out of repositories entirely." },
+                  { icon: "wifi", title: "Unrestricted Network Access", desc: "Zero Trust replaces broad VPN access with per-application, per-identity, per-device access decisions." },
+                  { icon: "eye-off", title: "Blind Spots in Audit", desc: "Centralized logging aggregates events from all layers for correlation, anomaly detection, and forensic investigation." },
+                  { icon: "door-open", title: "Persistent Access After Offboarding", desc: "Single IdP revocation immediately terminates all SSO sessions and access across every integrated platform." }
+                ].map((risk, i) => (
+                  <div key={i} className="bg-red-50 rounded-xl border border-slate-200 border-l-4 border-l-red-600 px-5 py-4 shadow-sm">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Icon name={risk.icon} className="w-5 h-5 text-red-600" />
+                      <span className="font-heading font-bold text-[#0F172A] text-sm">{risk.title}</span>
+                    </div>
+                    <p className="text-slate-600 text-xs leading-relaxed">{risk.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Implementation Roadmap */}
+            <section>
+              <div className="mb-5">
+                <h3 className="font-heading text-2xl font-bold text-[#0F172A] mb-1">Implementation Roadmap</h3>
+                <p className="text-slate-500 text-sm max-w-3xl leading-relaxed">
+                  Six principles to guide a successful rollout of this security architecture.
+                </p>
+              </div>
+              <div className="grid sm:grid-cols-2 gap-5">
+                {[
+                  { n: 1, title: "Define a single identity source of truth", desc: "Establish one IdP (Entra ID or Google Workspace) as the authoritative source for all user accounts, groups, roles, and offboarding. Every application trusts this source \u2014 revoke once, revoke everywhere.", delay: "fade-in-up-1" },
+                  { n: 2, title: "Enforce MDM before granting resource access", desc: "Treat device enrollment as a prerequisite, not an option. Zero Trust posture checks should block non-enrolled or non-compliant devices from accessing any sensitive resource.", delay: "fade-in-up-2" },
+                  { n: 3, title: "Separate human secrets from machine secrets", desc: "Use 1Password or Bitwarden for human-facing credentials. Use a platform Secrets Manager for application and pipeline secrets. Apply independent rotation schedules and audit trails to each.", delay: "fade-in-up-3" },
+                  { n: 4, title: "Apply Zero Trust per-application, not per-network", desc: "Avoid broad VPN-style access. Define explicit policies for each application by identity group, device posture, and environment (dev / staging / production).", delay: "fade-in-up-1" },
+                  { n: 5, title: "Design log alerts around real threat scenarios", desc: "Build dashboards and alerts around the four threat layers: stolen device, stolen credentials, leaked secrets, and unauthorized access. Correlate across IdP, MDM, Zero Trust, and GitHub.", delay: "fade-in-up-2" },
+                  { n: 6, title: "Test offboarding regularly", desc: "Run quarterly offboarding drills: disable the IdP account, verify SSO sessions terminate, confirm GitHub access is revoked, and validate MDM can execute a remote wipe. Document each result.", delay: "fade-in-up-3" }
+                ].map((item) => (
+                  <div key={item.n} className={"fade-in-up " + item.delay + " bg-white rounded-xl border border-slate-200 shadow-sm p-5 flex items-start gap-4"}>
+                    <span className="text-3xl font-heading font-bold text-[#0F172A] leading-none shrink-0 w-8 text-center">{item.n}</span>
+                    <div>
+                      <p className="font-heading font-bold text-[#0F172A] text-sm mb-1">{item.title}</p>
+                      <p className="text-slate-600 text-xs leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Glossary */}
+            <section>
+              <div className="mb-5">
+                <h3 className="font-heading text-2xl font-bold text-[#0F172A] mb-1">Glossary</h3>
+                <p className="text-slate-500 text-sm max-w-3xl leading-relaxed">
+                  Key terms used throughout this architecture document.
+                </p>
+              </div>
+              <div className="grid lg:grid-cols-2 gap-5">
+                {[
+                  { term: "MDM", icon: "laptop", border: "border-[#2563EB]", def: "Mobile Device Management. Centralized platform for enrolling, configuring, and enforcing security policies across corporate endpoints. Examples: Jamf, Kandji." },
+                  { term: "SSO", icon: "log-in", border: "border-[#7C3AED]", def: "Single Sign-On. Authentication mechanism where one corporate identity (via an IdP) grants access to multiple applications without separate credentials for each." },
+                  { term: "MFA", icon: "shield", border: "border-[#D97706]", def: "Multi-Factor Authentication. Requires a second verification factor beyond password \u2014 typically a TOTP code, hardware key (FIDO2), or push notification." },
+                  { term: "Zero Trust", icon: "globe", border: "border-[#16A34A]", def: "Security model that treats every access request as untrusted by default. Access is only granted after verifying identity, device posture, and explicit policy \u2014 regardless of network location." },
+                  { term: "Secret", icon: "key", border: "border-[#0891B2]", def: "Any sensitive credential used by a person or machine: API tokens, database passwords, private keys, certificates, or environment variables containing sensitive data." },
+                  { term: "IdP", icon: "user-check", border: "border-[#DC2626]", def: "Identity Provider. The authoritative service that authenticates users and issues identity assertions to other systems. Acts as the single control point for access revocation." },
+                  { term: "Observability", icon: "eye", border: "border-[#0F172A]", def: "The ability to understand the internal state of a system from its outputs. In security contexts: collecting, correlating, and querying logs from all layers to detect anomalies and support investigations." }
+                ].map((item) => (
+                  <div key={item.term} className={"bg-white rounded-xl border border-slate-200 border-l-4 " + item.border + " p-5 shadow-sm flex items-start gap-4"}>
+                    <Icon name={item.icon} className="w-5 h-5 mt-0.5 shrink-0 text-slate-400" />
+                    <div>
+                      <p className="font-heading font-bold text-[#0F172A] text-sm mb-1">{item.term}</p>
+                      <p className="text-slate-600 text-xs leading-relaxed">{item.def}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
           </main>
+
+          {/* Footer */}
+          <footer className="bg-[#0F172A] mt-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+              <span className="text-slate-400 text-xs">Remote Team Security Architecture — Confidential — March 2026</span>
+              <span className="text-slate-400 text-xs">Built with Zero Trust principles</span>
+            </div>
+          </footer>
         </div>
       );
     }
