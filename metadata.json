@@ -1,0 +1,5 @@
+{
+  "name": "Security Architecture Explorer",
+  "description": "An interactive dashboard explaining multi-layered security architecture, risks, and mitigations.",
+  "requestFramePermissions": []
+}
